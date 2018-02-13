@@ -20,7 +20,7 @@
     <dependency>
       <groupId>com.veracode.annotation</groupId>
       <artifactId>VeracodeAnnotations</artifactId>
-      <version>1.0.4/version>
+      <version>1.0.4</version>
     </dependency>
  
     <!-- Spring dependencies -->
