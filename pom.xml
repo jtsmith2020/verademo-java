@@ -18,9 +18,9 @@
   <dependencies>
  
     <dependency>
-      <groupId>com.veracode</groupId>
-      <artifactId>annotations</artifactId>
-      <version>1.0</version>
+      <groupId>com.veracode.annotation</groupId>
+      <artifactId>VeracodeAnnotations</artifactId>
+      <version>1.0.4/version>
     </dependency>
  
     <!-- Spring dependencies -->
