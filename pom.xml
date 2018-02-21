@@ -12,6 +12,7 @@
   <properties>
     <spring.version>3.2.15.RELEASE</spring.version>
     <fileupload.version>1.3.2</fileupload.version>
+    <mysql.version>5.1.35</mysql.version>
   </properties>
   
   <!-- Dependencies begin here -->
@@ -80,7 +81,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.35</version>
+      <version>${mysql.version}</version>
     </dependency>
     
     <dependency>

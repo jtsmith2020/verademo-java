@@ -29,12 +29,6 @@ public class BlabController {
 
 	private String dbConnStr = "jdbc:mysql://localhost/blab?user=blab&password=z2^E6J4$;u;d";
 
-	@CRLFCleanser
-	private String safeLog(String msg) {
-		return msg.replaceAll("\n", "[newline]");
-	}
-
-	
 	@Autowired
 	private UserSession theUser;
 
