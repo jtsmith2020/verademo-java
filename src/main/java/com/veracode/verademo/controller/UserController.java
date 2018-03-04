@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.veracode.verademo.utils.Cleansers;
+import com.veracode.verademo.utils.Constants;
 import com.veracode.verademo.utils.UserSession;
 
 
@@ -37,7 +38,6 @@ public class UserController {
 	@Autowired
 	private UserSession theUser;
 	
-	private String dbConnStr = "jdbc:mysql://localhost/blab?user=blab&password=z2^E6J4$;u;d";
 
 	
 	
@@ -85,7 +85,8 @@ public class UserController {
 			// Get the Database Connection
 			logger.info("Creating the Database connection");
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection(dbConnStr);
+			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
+			connect.setAutoCommit(false);
 
 			
 			
@@ -213,7 +214,8 @@ public class UserController {
 			// Get the Database Connection
 			logger.info("Creating the Database connection");
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection(dbConnStr);
+			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
+			connect.setAutoCommit(false);
 
 			/* START BAD CODE 
 			// Execute the query
@@ -283,7 +285,8 @@ public class UserController {
 			logger.info("Getting Database connection");
 			// Get the Database Connection
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection(dbConnStr);
+			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
+			connect.setAutoCommit(false);
 			
 			// Find the Blabs that this user listens to
 			logger.info("Preparing the BlabsForMe Prepared Statement");
@@ -352,7 +355,8 @@ public class UserController {
 				logger.info("Getting Database connection");
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
-				connect = DriverManager.getConnection(dbConnStr);
+				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
+				connect.setAutoCommit(false);
 				
 				// 
 				logger.info("Preparing the update Prepared Statement");

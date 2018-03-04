@@ -27,7 +27,6 @@ import com.veracode.annotation.CRLFCleanser;
 public class BlabController {
 	private static final Logger logger = LogManager.getLogger("VeraDemo:BlabController");
 
-	private String dbConnStr = "jdbc:mysql://localhost/blab?user=blab&password=z2^E6J4$;u;d";
 
 	@Autowired
 	private UserSession theUser;
@@ -58,7 +57,8 @@ public class BlabController {
 				logger.info("Getting Database connection");
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
-				connect = DriverManager.getConnection(dbConnStr);
+				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
+				connect.setAutoCommit(false);
 				
 				// Find the Blabs that this user listens to
 				logger.info("Preparing the BlabsForMe Prepared Statement");
@@ -163,7 +163,8 @@ public class BlabController {
 				logger.info("Getting Database connection");
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
-				connect = DriverManager.getConnection(dbConnStr);
+				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
+				connect.setAutoCommit(false);
 				
 				java.util.Date now = new java.util.Date();
 				// 
@@ -232,7 +233,8 @@ public class BlabController {
 				logger.info("Getting Database connection");
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
-				connect = DriverManager.getConnection(dbConnStr);
+				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
+				connect.setAutoCommit(false);
 				
 				// Find the Blabs that this user listens to
 				logger.info("Preparing the blabDetails Prepared Statement");
@@ -315,7 +317,8 @@ public class BlabController {
 				logger.info("Getting Database connection");
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
-				connect = DriverManager.getConnection(dbConnStr);
+				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
+				connect.setAutoCommit(false);
 				
 				java.util.Date now = new java.util.Date();
 				// 
@@ -405,7 +408,8 @@ public class BlabController {
 				logger.info("Getting Database connection");
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
-				connect = DriverManager.getConnection(dbConnStr);
+				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
+				connect.setAutoCommit(false);
 				
 				// Find the Blabbers
 				logger.info("Preparing the blabbers Prepared Statement");
@@ -485,7 +489,8 @@ public class BlabController {
 				logger.info("Getting Database connection");
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
-				connect = DriverManager.getConnection(dbConnStr);
+				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
+				connect.setAutoCommit(false);
 				
 				java.util.Date now = new java.util.Date();
 				// 

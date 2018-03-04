@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.veracode.verademo.utils.UserSession;
+import com.veracode.verademo.utils.Constants;
 import java.security.SecureRandom;
 import java.security.NoSuchAlgorithmException ;
 import java.security.NoSuchProviderException ;
@@ -173,8 +174,6 @@ public class Utils {
 	@Autowired
 	private UserSession theUser;
 	
-	private String dbConnStr = "jdbc:mysql://localhost/blab?user=blab&password=z2^E6J4$;u;d";
-
 	@RequestMapping(value="/reset", method=RequestMethod.GET)
 	public String showReset(@RequestParam(value="type", required=false) String type, Model model) {
 		logger.info("Entering showReset");
@@ -199,10 +198,10 @@ public class Utils {
 			                   @RequestParam(value="primary", required=false) String primary, Model model) {
 		logger.info("Entering processReset");
 		
-		/* BEGIN BAD CODE 
+		/* BEGIN BAD CODE */
 		Random rand = new Random();
 		/* END BAD CODE */
-		/* BEGIN GOOD CODE*/
+		/* BEGIN GOOD CODE
 		SecureRandom rand = generateRandom(new String[]{});
 		/* END GOOD CODE */
 		int days_1 = 60 * 60 * 24;
@@ -220,7 +219,10 @@ public class Utils {
 			logger.info("Getting Database connection");
 			// Get the Database Connection
 			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection(dbConnStr);
+			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
+			connect.setAutoCommit(false);
+
+
 
 			// Drop and re-create the Tables
 			logger.info("Creating Statement for resetting the Database");
