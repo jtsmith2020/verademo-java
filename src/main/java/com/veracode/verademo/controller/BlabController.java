@@ -58,7 +58,7 @@ public class BlabController {
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
 				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-				connect.setAutoCommit(false);
+				connect.setAutoCommit(true);
 				
 				// Find the Blabs that this user listens to
 				logger.info("Preparing the BlabsForMe Prepared Statement");
@@ -164,7 +164,7 @@ public class BlabController {
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
 				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-				connect.setAutoCommit(false);
+				connect.setAutoCommit(true);
 				
 				java.util.Date now = new java.util.Date();
 				// 
@@ -234,7 +234,7 @@ public class BlabController {
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
 				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-				connect.setAutoCommit(false);
+				connect.setAutoCommit(true);
 				
 				// Find the Blabs that this user listens to
 				logger.info("Preparing the blabDetails Prepared Statement");
@@ -318,7 +318,7 @@ public class BlabController {
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
 				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-				connect.setAutoCommit(false);
+				connect.setAutoCommit(true);
 				
 				java.util.Date now = new java.util.Date();
 				// 
@@ -409,7 +409,7 @@ public class BlabController {
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
 				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-				connect.setAutoCommit(false);
+				connect.setAutoCommit(true);
 				
 				// Find the Blabbers
 				logger.info("Preparing the blabbers Prepared Statement");
@@ -490,7 +490,7 @@ public class BlabController {
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
 				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-				connect.setAutoCommit(false);
+				connect.setAutoCommit(true);
 				
 				java.util.Date now = new java.util.Date();
 				// 

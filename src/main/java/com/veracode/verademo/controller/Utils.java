@@ -220,7 +220,7 @@ public class Utils {
 			// Get the Database Connection
 			Class.forName("com.mysql.jdbc.Driver");
 			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-			connect.setAutoCommit(false);
+			connect.setAutoCommit(true);
 
 
 

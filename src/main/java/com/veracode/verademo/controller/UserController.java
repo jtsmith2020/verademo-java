@@ -86,7 +86,7 @@ public class UserController {
 			logger.info("Creating the Database connection");
 			Class.forName("com.mysql.jdbc.Driver");
 			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-			connect.setAutoCommit(false);
+			connect.setAutoCommit(true);
 
 			
 			
@@ -215,7 +215,7 @@ public class UserController {
 			logger.info("Creating the Database connection");
 			Class.forName("com.mysql.jdbc.Driver");
 			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-			connect.setAutoCommit(false);
+			connect.setAutoCommit(true);
 
 			/* START BAD CODE 
 			// Execute the query
@@ -286,7 +286,7 @@ public class UserController {
 			// Get the Database Connection
 			Class.forName("com.mysql.jdbc.Driver");
 			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-			connect.setAutoCommit(false);
+			connect.setAutoCommit(true);
 			
 			// Find the Blabs that this user listens to
 			logger.info("Preparing the BlabsForMe Prepared Statement");
@@ -356,7 +356,7 @@ public class UserController {
 				// Get the Database Connection
 				Class.forName("com.mysql.jdbc.Driver");
 				connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-				connect.setAutoCommit(false);
+				connect.setAutoCommit(true);
 				
 				// 
 				logger.info("Preparing the update Prepared Statement");
