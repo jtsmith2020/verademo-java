@@ -95,7 +95,7 @@ public class UserController {
 			logger.info("Creating the Statement");
 			String sqlQuery = "select * from users where username='" + username + "' and password='" + password + "';";
 			sqlStatement = connect.createStatement();
-			logger.info("Execute the Statement");
+			logger.info("Execute the Statement: " + sqlQuery);
 			ResultSet result = sqlStatement.executeQuery(sqlQuery);
 			/* END BAD CODE */
 			/* START GOOD CODE 
