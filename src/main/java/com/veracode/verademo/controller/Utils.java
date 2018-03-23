@@ -198,10 +198,12 @@ public class Utils {
 			                   @RequestParam(value="primary", required=false) String primary, Model model) {
 		logger.info("Entering processReset");
 		
+		int x = 0;
+		
 		/* BEGIN BAD CODE */
 		Random rand = new Random();
 		/* END BAD CODE */
-		/* BEGIN GOOD CODE
+		/* BEGIN GOOD CODE 
 		SecureRandom rand = generateRandom(new String[]{});
 		/* END GOOD CODE */
 		int days_1 = 60 * 60 * 24;
