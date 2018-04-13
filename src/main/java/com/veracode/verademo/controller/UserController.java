@@ -72,10 +72,10 @@ public class UserController {
 		logger.info("Entering processLogin");
 		
 		Connection connect = null;
-        /* START BAD CODE 
+        /* START BAD CODE */
 		Statement sqlStatement = null;
         /* END BAD CODE */
-        /* START GOOD CODE */
+        /* START GOOD CODE
 		PreparedStatement sqlStatement = null;
         /* END GOOD CODE */
  
@@ -90,7 +90,7 @@ public class UserController {
 
 			
 			
-			/* START BAD CODE 
+			/* START BAD CODE */
 			// Execute the query
 			logger.info("Creating the Statgrement");
 			String sqlQuery = "select * from users where username='" + username + "' and password='" + password + "';";
@@ -98,7 +98,7 @@ public class UserController {
 			logger.info("Execute the Statement: " + sqlQuery);
 			ResultSet result = sqlStatement.executeQuery(sqlQuery);
 			/* END BAD CODE */
-			/* START GOOD CODE*/
+			/* START GOOD CODE
 			String sqlQuery = "select * from users where username=? and password=?;";
 			logger.info("Preparing the PreparedStatement");
 			sqlStatement = connect.prepareStatement(sqlQuery);
@@ -224,7 +224,7 @@ public class UserController {
 			Boolean result = sqlStatement.execute(sqlQuery);
 			/* END BAD CODE */
 
-			/* START GOOD GODE */
+			/* START GOOD CODE */
 			String sqlQuery = "insert into users (username, password, date_created, real_name, blab_name) values (?, ?, ?, ?, ?)";
 			logger.info("Preparing the PreparedStatement");
 			sqlStatement = connect.prepareStatement(sqlQuery);
@@ -234,10 +234,10 @@ public class UserController {
 			sqlStatement.setDate(3,  new java.sql.Date(Calendar.getInstance().getTime().getTime()));
 			sqlStatement.setString(4, realName);
 			sqlStatement.setString(5, blabName);
-			
 			logger.info("Executing the PreparedStatement");
 			Boolean result = sqlStatement.execute();
-			
+			/* END GOOD CODE */
+
 			// If there is a record...
 			if (result) {
 				//failre
