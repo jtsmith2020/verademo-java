@@ -98,7 +98,7 @@ public class UserController {
 			logger.info("Execute the Statement: " + sqlQuery);
 			ResultSet result = sqlStatement.executeQuery(sqlQuery);
 			/* END BAD CODE */
-			/* START GOOD CODE*/
+			/* START GOOD CODE */
 			String sqlQuery = "select * from users where username=? and password=?;";
 			logger.info("Preparing the PreparedStatement");
 			sqlStatement = connect.prepareStatement(sqlQuery);
