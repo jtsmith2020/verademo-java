@@ -203,10 +203,10 @@ public class UserController {
 			return "register";
 		}
 		Connection connect = null;
-        /* START BAD CODE 
+        /* START BAD CODE */
 		Statement sqlStatement = null;
         /* END BAD CODE */
-        /* START GOOD CODE */
+        /* START GOOD CODE 
 		PreparedStatement sqlStatement = null;
         /* END GOOD CODE */
 
@@ -217,14 +217,14 @@ public class UserController {
 			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
 			connect.setAutoCommit(true);
 
-			/* START BAD CODE 
+			/* START BAD CODE */
 			// Execute the query
 			String sqlQuery = "insert into users (username, password) values ('" + username + "', '" + password + "')";
 			sqlStatement = connect.createStatement();
 			Boolean result = sqlStatement.execute(sqlQuery);
 			/* END BAD CODE */
 
-			/* START GOOD CODE */
+			/* START GOOD CODE 
 			String sqlQuery = "insert into users (username, password, date_created, real_name, blab_name) values (?, ?, ?, ?, ?)";
 			logger.info("Preparing the PreparedStatement");
 			sqlStatement = connect.prepareStatement(sqlQuery);
