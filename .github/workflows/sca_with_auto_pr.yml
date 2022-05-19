@@ -42,7 +42,6 @@ jobs:
         SRCCLR_SCM_URL: https://github.com/$GITHUB_REPOSITORY
         EXTRA_ARGS: '--recursive --update-advisor --pull-request --debug'
       run: |
-        cd app
         git config --global user.email "${{ secrets.USER_EMAIL }}"
         git config --global user.name "${{ secrets.USER_NAME }}"
         curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan $EXTRA_ARGS
