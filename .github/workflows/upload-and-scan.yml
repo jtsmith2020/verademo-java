@@ -23,7 +23,7 @@ jobs:
         run: mvn -B package --file pom.xml
       - uses: actions/upload-artifact@v2 # Copy files from repository to docker container so the next uploadandscan action can access them.
         with:
-          path: /app/verademo.war # See: https://github.com/actions/upload-artifact
+          path: ./target/verademo.war # See: https://github.com/actions/upload-artifact
           name: built-file
         
   generate-sandbox-name:
