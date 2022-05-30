@@ -1,47 +1,90 @@
-# This workflow will initiate a Veracode SCA Scan. 
-# See: https://help.veracode.com/r/t_configure_pr_github
+## This workflow will initiate a Veracode SCA Scan.
+## See: https://help.veracode.com/r/t_configure_pr_github
+#
+## Requires the following secrets:
+## SRCCLR_API_TOKEN - generated when creating a new integration under the Agents tab
+## SCM_GITHUB - https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
+## USER_EMAIL - email address, used in pull requests
+## USER_NAME - username, used in pull requests
+#
+#name: Veracode SCA Scan with Pull Request
+#
+## original flow:  https://github.com/tjarrettveracode/.github/blob/main/workflow-templates/sca.yml
+#
+## Controls when the action will run. Triggers the workflow on push or pull request
+## events but only for the master/main branch
+#on:
+#  workflow_dispatch:
+#  push:
+#    branches:
+#      - master
+#      - main
+#
+#jobs:
+#  opensource-scan-for-PR:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: SCA Agent scan
+#      #if: ${{ secrets.SRCCLR_API_TOKEN }} && ${{secrets.SRCCLR_GITHUB_TOKEN}}
+#      env: # Set the secret as an input
+#        # SCA agent activation token
+#        SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
+#        SRCCLR_SCM_TYPE: GITHUB
+#        # See: https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
+#        SRCCLR_SCM_TOKEN: ${{ secrets.SCM_GITHUB }}
+#        # Generate a pull request when libraries contain calls to vulnerable methods
+#        #SRCCLR_PR_ON: Low
+#        # Do not include potentially build-breaking upgrades in a pull request
+#        #SRCCLR_NO_BREAKING_UPDATES: true
+#        # Generate a pull request if there are no open pull requests with the exact same changes
+#        #SRCCLR_IGNORE_CLOSED_PRS: true
+#        SRCCLR_SCM_URL: https://github.com/$GITHUB_REPOSITORY
+#        EXTRA_ARGS: '--recursive --update-advisor --pull-request --debug'
+#      run: |
+#        git config --global user.email "${{ secrets.USER_EMAIL }}"
+#        git config --global user.name "${{ secrets.USER_NAME }}"
+#        curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan $EXTRA_ARGS
 
-# Requires the following secrets:
-# SRCCLR_API_TOKEN - generated when creating a new integration under the Agents tab
-# SCM_GITHUB - https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
-# USER_EMAIL - email address, used in pull requests
-# USER_NAME - username, used in pull requests
-
-name: Veracode SCA Scan with Pull Request
-
-# original flow:  https://github.com/tjarrettveracode/.github/blob/main/workflow-templates/sca.yml
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master/main branch
+name: Veracode SCA Scan
+#
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - master
-      - main      
+    paths-ignore:
+      - "README.md"
+  schedule:
+    - cron: 15 14 * * 6
 
 jobs:
-  opensource-scan-for-PR:
+  veracode-sca-task:
     runs-on: ubuntu-latest
+    name: Scan repository for Issues
+
     steps:
-    - uses: actions/checkout@v2
-    - name: SCA Agent scan
-      #if: ${{ secrets.SRCCLR_API_TOKEN }} && ${{secrets.SRCCLR_GITHUB_TOKEN}}
-      env: # Set the secret as an input
-        # SCA agent activation token
-        SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
-        SRCCLR_SCM_TYPE: GITHUB
-        # See: https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
-        SRCCLR_SCM_TOKEN: ${{ secrets.SCM_GITHUB }} 
-        # Generate a pull request when libraries contain calls to vulnerable methods
-        #SRCCLR_PR_ON: Low
-        # Do not include potentially build-breaking upgrades in a pull request
-        #SRCCLR_NO_BREAKING_UPDATES: true
-        # Generate a pull request if there are no open pull requests with the exact same changes
-        #SRCCLR_IGNORE_CLOSED_PRS: true
-        SRCCLR_SCM_URL: https://github.com/$GITHUB_REPOSITORY
-        EXTRA_ARGS: '--recursive --update-advisor --pull-request --debug'
-      run: |
-        git config --global user.email "${{ secrets.USER_EMAIL }}"
-        git config --global user.name "${{ secrets.USER_NAME }}"
-        curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan $EXTRA_ARGS
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/setup-java@v1 # Make java accessible on path so the uploadandscan action can run.
+        with:
+          java-version: '8'
+
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
+      - uses: actions/upload-artifact@v2 # Copy files from repository to docker container so the next uploadandscan action can access them.
+        with:
+          path: '**/*.war' # Wildcards can be used to filter the files copied into the container. See: https://github.com/actions/upload-artifact
+      - name: Veracode Software Composition Analysis
+        env:
+          SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
+        #       run: |
+        #        curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --debug --allow-dirty
+        uses: Lerer/veracode-sca@v1.0.6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          quick: false
+          debug: false
+          create-issues: true
+          fail-on-cvss: 1
+          min-cvss-for-issue: 1
+#         path: '**/*.war'
