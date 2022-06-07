@@ -69,6 +69,27 @@ jobs:
               -version CircleCI-$CIRCLE_BUILD_NUM 
               -filepath verademo-java/target/verademo.war
               
+    # job to upload to Veracode for scanning
+  srcclr_scan:
+    docker:
+      # specify the version you desire here
+      - image: cimg/openjdk:17.0.3
+
+    working_directory: ~/repo
+
+    steps:
+      # get the files from the previous job
+      - attach_workspace:
+          at: .
+
+      # download and run SourceClear scanner
+      - run:
+          name: "SourceClear scan"
+          environment:
+           SRCCLR_API_TOKEN: $SRCCLR_API_TOKEN
+          command: |
+            cd verademo-java
+            curl -sSL https://download.sourceclear.com/ci.sh | bash
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
