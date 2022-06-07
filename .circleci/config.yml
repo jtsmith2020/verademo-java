@@ -53,7 +53,7 @@ jobs:
       # env vars are used to pass login creds and set the scan name
       - run:
           name: "Upload to Veracode"
-          command: java -jar veracode/api-wrapper-java:latest 
+          command: java -jar /opt/veracode/api-wrapper.jar 
               -vid $VERACODE_API_ID 
               -vkey $VERACODE_API_KEY 
               -action uploadandscan 
