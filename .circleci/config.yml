@@ -85,8 +85,6 @@ jobs:
       # download and run SourceClear scanner
       - run:
           name: "SourceClear scan"
-          environment:
-           SRCCLR_API_TOKEN: $SRCCLR_API_TOKEN
           command: |
             cd verademo-java
             curl -sSL https://download.sourceclear.com/ci.sh | bash
