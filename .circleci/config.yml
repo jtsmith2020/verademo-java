@@ -99,6 +99,6 @@ workflows:
       - veracode_scan:
           requires:
             - build
-#      - srcclr_scan:
-#          requires:
-#            - build
+      - srcclr_scan:
+          requires:
+            - build
