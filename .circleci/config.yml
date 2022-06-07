@@ -54,7 +54,7 @@ jobs:
           name: "Package for upload to Veracode"
           #command: zip -r upload.zip nodegoat
           #command: zip -r upload.zip nodegoat -x *node_modules/*
-          command: ls verademo-java
+          command: ls verademo-java/target
 
       # upload for scanning
       # env vars are used to pass login creds and set the scan name
@@ -67,7 +67,7 @@ jobs:
               -appname $VERACODE_APP_NAME 
               -createprofile false 
               -version CircleCI-$CIRCLE_BUILD_NUM 
-              -filepath verademo-java/verademo.war
+              -filepath verademo-java/target/verademo.war
               
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
